@@ -1,5 +1,7 @@
 # ToDoList
 
+[![.NET](https://github.com/prateekchaplot/ToDoList/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/prateekchaplot/ToDoList/actions/workflows/dotnet.yml)
+
 A RESTful API for a to-do list application. This API allows users to manage their tasks, including creating, updating, and deleting tasks.
 
 ## Prerequisites
@@ -56,5 +58,4 @@ docker-compose up
 - Move db (sqlite) to separate container
 - Add load balancer (nginx) scale application
 - Add cache (redis) to improve db reads
-- Add ci/cd pipeline (github actions)
 - Deploy service to api hosting service (vercel)
