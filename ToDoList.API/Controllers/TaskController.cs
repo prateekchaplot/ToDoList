@@ -44,4 +44,34 @@ public class TaskController : ControllerBase
         var createdItem = await _taskRepository.AddAsync(itemToCreate);
         return CreatedAtAction(nameof(GetTask), new { createdItem.Id }, _mapper.Map<TaskItemDto>(createdItem));
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTask(int id, TaskItemDto dto)
+    {
+        var item = await _taskRepository.FirstOrDefaultAsync(x => x.Id == id);
+        if (item == null)
+            return NotFound();
+        
+        item.Title = dto.Title;
+        item.Description = dto.Description;
+        item.DueDate = dto.DueDate;
+        item.IsCompleted = dto.IsCompleted;
+        
+        bool isParsed = Enum.TryParse(dto.Status, out TASK_STATUS result);
+        item.Status = isParsed ? result : item.Status;
+
+        await _taskRepository.UpdateAsync(item);
+        return Ok(_mapper.Map<TaskItemDto>(item));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(int id)
+    {
+        var item = await _taskRepository.FirstOrDefaultAsync(x => x.Id == id);
+        if (item == null)
+            return NotFound();
+        
+        await _taskRepository.DeleteAsync(item);
+        return NoContent();
+    }
 }

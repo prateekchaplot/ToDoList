@@ -31,6 +31,19 @@ public class Repository<T> : IRepository<T> where T : class
         return await _set.FirstOrDefaultAsync(expression);
     }
 
+    public async Task<T> UpdateAsync(T item)
+    {
+        _set.Update(item);
+        await SaveChangesAsync();
+        return item;
+    }
+
+    public async Task DeleteAsync(T item)
+    {
+        _set.Remove(item);
+        await SaveChangesAsync();
+    }
+
     private async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;
