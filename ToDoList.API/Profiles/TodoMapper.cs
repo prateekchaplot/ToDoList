@@ -8,7 +8,8 @@ public class TodoMapper : Profile
 {
     public TodoMapper()
     {
-        CreateMap<TaskItemDto, TaskItem>()
-            .ReverseMap();
+        CreateMap<TaskItem, ReadTaskDto>();
+        CreateMap<CreateTaskDto, TaskItem>();
+        CreateMap<UpdateTaskDto, TaskItem>();
     }
 }
