@@ -2,7 +2,7 @@
 
 A RESTful API for a to-do list application. This API allows users to manage their tasks, including creating, updating, and deleting tasks.
 
-### Prerequisites
+## Prerequisites
 
 - Docker
 
@@ -31,7 +31,20 @@ docker-compose up
 - .NET Core 7.0
 - ASP.NET Core Web API
 - Entity Framework Core
-<!-- - SQL Server -->
+- SQLite
+
+### Notes
+
+1. To add migration via powershell -
+
+    ```powershell
+    PS> $env:ASPNETCORE_ENVIRONMENT='Production'
+    dotnet ef migrations add Init --project ..\ToDoList.Data\ToDoList.Data.csproj
+    ```
+
+1. To run on `PRODUCTION` environment:
+    - Update `ASPNETCORE_ENVIRONMENT=Production` in `docker-compose.yml` file.
+    - Then, build and run.
 
 ## Author
 
