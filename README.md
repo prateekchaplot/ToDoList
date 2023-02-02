@@ -53,6 +53,16 @@ The following endpoints are available:
 - `PUT /tasks/{id}`: Update an existing task.
 - `DELETE /tasks/{id}`: Delete a task.
 
+
+## Run with Docker
+
+1. To build & run docker image locally, use following commands:
+
+```powershell
+docker-compose build
+docker-compose up
+```
+
 ## Built With
 
 - .NET Core 7.0
