@@ -1,8 +1,10 @@
+using ToDoList.API.Profiles;
 using ToDoList.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(typeof(TodoMapper));
 builder.Services.AddInMemoryDatabase();
 builder.Services.AddRepository();
 builder.Services.AddControllers();

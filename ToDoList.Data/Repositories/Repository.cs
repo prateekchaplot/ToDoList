@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Data.Repositories;
@@ -23,6 +24,11 @@ public class Repository<T> : IRepository<T> where T : class
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _set.ToListAsync();
+    }
+
+    public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
+    {
+        return await _set.FirstOrDefaultAsync(expression);
     }
 
     private async Task<bool> SaveChangesAsync()

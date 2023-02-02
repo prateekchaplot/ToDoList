@@ -1,31 +1,47 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ToDoList.API.Dtos;
 using ToDoList.Data.Models;
 using ToDoList.Data.Repositories;
 
 namespace ToDoList.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("tasks")]
 public class TaskController : ControllerBase
 {
     private readonly IRepository<TaskItem> _taskRepository;
+    private readonly IMapper _mapper;
 
-    public TaskController(IRepository<TaskItem> taskRepository)
+    public TaskController(IRepository<TaskItem> taskRepository, IMapper mapper)
     {
         _taskRepository = taskRepository;
+        _mapper = mapper;
     }
 
-    [HttpGet("[action]")]
+    [HttpGet]
     public async Task<IActionResult> GetTasks()
     {
         var items = await _taskRepository.GetAllAsync();
-        return Ok(items);
+        var result = _mapper.Map<TaskItemDto[]>(items);
+        return Ok(result);
     }
 
-    [HttpPost("[action]")]
-    public async Task<IActionResult> AddTask(TaskItem taskItem)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTask(int id)
     {
-        var createdItem = await _taskRepository.AddAsync(taskItem);
-        return Ok(createdItem);
+        var item = await _taskRepository.FirstOrDefaultAsync(x => x.Id == id);
+        if (item == null)
+            return NotFound();
+            
+        return Ok(_mapper.Map<TaskItemDto>(item));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddTask(TaskItemDto dto)
+    {
+        var itemToCreate = _mapper.Map<TaskItem>(dto);
+        var createdItem = await _taskRepository.AddAsync(itemToCreate);
+        return CreatedAtAction(nameof(GetTask), new { createdItem.Id }, _mapper.Map<TaskItemDto>(createdItem));
     }
 }
