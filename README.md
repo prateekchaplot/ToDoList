@@ -49,3 +49,12 @@ docker-compose up
 ## Author
 
 [Prateek Chaplot](https://github.com/prateekchaplot/)
+
+## Future Improvements
+
+- Add authentication
+- Move db (sqlite) to separate container
+- Add load balancer (nginx) scale application
+- Add cache (redis) to improve db reads
+- Add ci/cd pipeline (github actions)
+- Deploy service to api hosting service (vercel)
