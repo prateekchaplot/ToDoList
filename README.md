@@ -59,3 +59,4 @@ docker-compose up
 - Add load balancer (nginx) scale application
 - Add cache (redis) to improve db reads
 - Deploy service to api hosting service (vercel)
+- Add test cases (xUnit)

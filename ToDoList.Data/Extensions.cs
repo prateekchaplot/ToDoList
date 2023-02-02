@@ -9,14 +9,7 @@ public static class Extensions
 {
     public static void AddDatabase(this IServiceCollection services, string connStr)
     {
-        IDictionary vars = Environment.GetEnvironmentVariables();
-        foreach (DictionaryEntry i in vars)
-        {
-            Console.WriteLine("{0}:{1}", i.Key, i.Value);
-        }
-
         var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        Console.WriteLine("{0}, {1}", env, connStr);
         
         // Add in memory database
         if (env.Equals("development", StringComparison.OrdinalIgnoreCase))
@@ -27,7 +20,6 @@ public static class Extensions
         // Add persistent database
         else if (env.Equals("production", StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine("SQLITE");
             services.AddDbContext<TodoContext>(x => x.UseSqlite(connStr));
         }
     }
